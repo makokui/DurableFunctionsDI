@@ -9,18 +9,8 @@ using System.Runtime.CompilerServices;
 
 namespace DurableFunctionsDI
 {
-<<<<<<< HEAD
     // public static class Function1
     public class Function1
-=======
-    public interface IFunction
-    {
-        string Id { get; set; }
-    }
-
-    // public static class Function1
-    public class Function1 : IFunction
->>>>>>> 9f9c604499580b91ef6f2ba461f13671f2d2d61d
     {
         public string Id { get; set; }
 
@@ -76,13 +66,8 @@ namespace DurableFunctionsDI
                 // Function input comes from the request content.
                 //string instanceId = await client.ScheduleNewOrchestrationInstanceAsync(nameof(Function1));
                 await client.ScheduleNewOrchestrationInstanceAsync(
-<<<<<<< HEAD
                     nameof(Function1),
                     new StartOrchestrationOptions()
-=======
-                    nameof(Function1)
-                    , new StartOrchestrationOptions()
->>>>>>> 9f9c604499580b91ef6f2ba461f13671f2d2d61d
                     {
                         InstanceId = instanceId,
                     });

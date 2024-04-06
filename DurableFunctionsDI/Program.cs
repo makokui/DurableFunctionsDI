@@ -51,11 +51,7 @@ var host = new HostBuilder()
 
         });
 
-<<<<<<< HEAD
         s.AddSingleton<Function1>();
-=======
-        s.AddSingleton<IFunction, Function1>();
->>>>>>> 9f9c604499580b91ef6f2ba461f13671f2d2d61d
     })
     .Build();
 
