@@ -104,14 +104,14 @@ namespace DurableFunctionsDI
 
             // Check if an instance with the specified ID already exists or an existing one stopped running(completed/failed/terminated).
             // See https://learn.microsoft.com/azure/azure-functions/durable/durable-functions-singletons?tabs=csharp
-            string instanceId = "DurableFunctionsDI_Function1_RunOrchestrator";
+            string instanceId = "makokui-durablefunctions-di_DurableFunctionsDI_Function1_RunOrchestrator";
             var existingInstance = await client.GetInstanceAsync(instanceId);
             if (existingInstance == null
             || existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Completed
             || existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Failed
             || existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Terminated)
             {
-                logger.LogInformation("Started orchestration with ID = '{instanceId}'.", instanceId);
+                logger.LogInformation("Started orchestration with ID='{instanceId}' RuntimeStatus='{RuntimeStatus}'.", instanceId, existingInstance?.RuntimeStatus);
 
                 try {
                     // Function input comes from the request content.
