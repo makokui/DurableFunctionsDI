@@ -20,12 +20,12 @@ namespace DurableFunctionsDI
 
 
         // See https://learn.microsoft.com/azure/azure-functions/durable/durable-functions-code-constraints?tabs=csharp
-        [Function(nameof(Function1))]
+        [Function(nameof(RunOrchestrator))]
         //public static async Task<List<string>> RunOrchestrator(
         public async Task<List<string>> RunOrchestrator(
             [OrchestrationTrigger] TaskOrchestrationContext context)
         {
-            ILogger logger = context.CreateReplaySafeLogger(nameof(Function1));
+            ILogger logger = context.CreateReplaySafeLogger(nameof(RunOrchestrator));
             //logger.LogInformation($"{this.GetType()}.RunOrchestrator, Guid:{this.Id}");
             logger.LogInformation("Started RunOrchestrator.");
 
