@@ -5,25 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-//var host = new HostBuilder()
-//    .ConfigureFunctionsWebApplication()
-//    .ConfigureServices(services =>
-//    {
-//        // https://github.com/Azure/azure-functions-dotnet-worker/issues/2184
-//        services.Configure<KestrelServerOptions>(options =>
-//        {
-//            options.AllowSynchronousIO = true;
-//        });
 
-//        services.AddApplicationInsightsTelemetryWorkerService();
-//        services.ConfigureFunctionsApplicationInsights();
-//    })
-//    .Build();
-
-
-/*
-    https://learn.microsoft.com/azure/azure-functions/dotnet-isolated-process-guide?tabs=windows#start-up-and-configuration
-*/
+// See https://learn.microsoft.com/azure/azure-functions/dotnet-isolated-process-guide?tabs=windows#start-up-and-configuration
 var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
     .ConfigureServices(s =>
@@ -44,14 +27,13 @@ var host = new HostBuilder()
         //    }
         //});
 
-        // https://github.com/Azure/azure-functions-dotnet-worker/issues/2184
+        // See https://github.com/Azure/azure-functions-dotnet-worker/issues/2184
         s.Configure<KestrelServerOptions>(options =>
         {
             options.AllowSynchronousIO = true;
-
         });
 
-        s.AddSingleton<Function1>();
+        s.AddSingleton<IFunction, Function1>();
     })
     .Build();
 
