@@ -16,7 +16,7 @@ namespace DurableFunctionsDI
     // public static class Function1
     public class Function1 : IFunction
     {
-        //public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; } = Guid.NewGuid();
 
 
         // See https://learn.microsoft.com/azure/azure-functions/durable/durable-functions-code-constraints?tabs=csharp
@@ -26,8 +26,7 @@ namespace DurableFunctionsDI
             [OrchestrationTrigger] TaskOrchestrationContext context)
         {
             ILogger logger = context.CreateReplaySafeLogger(nameof(Function1));
-            //logger.LogInformation($"{this.GetType()}.RunOrchestrator, Guid:{this.Id}");
-            logger.LogInformation("Started RunOrchestrator.");
+            logger.LogInformation($"Started {this.GetType()}.RunOrchestrator. InstanceId='{context.InstanceId}', IsReplaying='{context.IsReplaying}, Guid='{this.Id}'");
 
             //logger.LogInformation("Saying hello.");
 
@@ -47,7 +46,7 @@ namespace DurableFunctionsDI
                 outputs.Add(task.Result);
             }
 
-            logger.LogInformation("Finished RunOrchestrator.");
+            logger.LogInformation($"Finished {this.GetType()}.RunOrchestrator. Guid='{this.Id}'");
             return outputs;
         }
 
@@ -56,12 +55,14 @@ namespace DurableFunctionsDI
         public async Task<string[]> GetAllWords([ActivityTrigger] string wordslist, FunctionContext executionContext)
         {
             ILogger logger = executionContext.GetLogger(nameof(GetAllWords));
-            logger.LogInformation($"Started GetAllWords with '{wordslist}'.", wordslist);
+            logger.LogInformation($"Started {this.GetType()}.GetAllWords with '{wordslist}'. Guid='{this.Id}'");
 
-            await Task.Delay(60000);
+            await Task.Delay(30000);
 
-            logger.LogInformation($"Finished GetAllWords with '{wordslist}'.", wordslist);
-            return wordslist.Split(',');
+            logger.LogInformation($"Finished {this.GetType()}.GetAllWords with '{wordslist}'. Guid='{this.Id}'");
+            //return wordslist.Split(',');
+            //var test = Array.ConvertAll(wordslist.Split(','), p => p.Trim());
+            return Array.ConvertAll(wordslist.Split(','), p => p.Trim());
         }
 
 
@@ -70,7 +71,7 @@ namespace DurableFunctionsDI
         public async Task<string> SayHello([ActivityTrigger] string name, FunctionContext executionContext)
         {
             ILogger logger = executionContext.GetLogger("SayHello");
-            logger.LogInformation($"Started SayHello with '{name}'.", name);
+            logger.LogInformation($"Started {this.GetType()}.SayHello with '{name}'. Guid='{this.Id}'");
             //logger.LogInformation("Saying hello to {name}.", name);
 
             switch (name)
@@ -88,7 +89,7 @@ namespace DurableFunctionsDI
                     break;
             }   
 
-            logger.LogInformation($"Finished SayHello with '{name}'.", name);
+            logger.LogInformation($"Finished {this.GetType()}.SayHello with '{name}'. Guid='{this.Id}'");
             return $"Hello {name}!";
         }
 

@@ -4,6 +4,6 @@ namespace DurableFunctionsDI
 {
     public interface IFunction
     {
-        //Guid Id { get; }
+        Guid Id { get; }
     }
 }
