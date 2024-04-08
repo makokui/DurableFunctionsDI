@@ -113,7 +113,7 @@ namespace DurableFunctionsDI
             || existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Failed
             || existingInstance.RuntimeStatus == OrchestrationRuntimeStatus.Terminated)
             {
-                logger.LogInformation("Started orchestration with ID='{instanceId}' RuntimeStatus='{RuntimeStatus}'.", instanceId, existingInstance?.RuntimeStatus);
+                logger.LogInformation($"Started orchestration with ID='{instanceId}' RuntimeStatus='{existingInstance?.RuntimeStatus}'. WEBSITE_INSTANCE_ID='{Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID")}'");
 
                 //try {
                     // Function input comes from the request content.
@@ -133,7 +133,7 @@ namespace DurableFunctionsDI
             else
             {
                 // An instance with the specified ID exists or an existing one still running, don't create one.
-                logger.LogWarning($"Skipped orchestration with ID = '{instanceId}' due to '{existingInstance.RuntimeStatus}'.");
+                logger.LogWarning($"Skipped orchestration with ID = '{instanceId}' due to '{existingInstance.RuntimeStatus}'. WEBSITE_INSTANCE_ID='{Environment.GetEnvironmentVariable("WEBSITE_INSTANCE_ID")}'");
             }
 
             // Returns an HTTP 202 response with an instance management payload.
